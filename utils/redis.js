@@ -8,9 +8,9 @@ class RedisClient {
       .on('error', (err) => {
         console.log(err);
       });
-    (async () => {
-      await client.connect();
-    })();
+    //    (async () => {
+    //  await client.connect();
+    //})();
   }
 
   // function that checks if redis has been connected successfully
