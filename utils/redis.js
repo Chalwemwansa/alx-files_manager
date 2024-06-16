@@ -8,9 +8,6 @@ class RedisClient {
       .on('error', (err) => {
         console.log(err);
       });
-    //    (async () => {
-    //  await client.connect();
-    //})();
   }
 
   // function that checks if redis has been connected successfully
@@ -21,15 +18,14 @@ class RedisClient {
 
   // the asynchronous get method that returns a value for a key
   // passed as an argument
-  async get (key) {
+  async get(key) {
     return new Promise((resolve, reject) => {
       this.client.get(key, (err, result) => {
         if (err) {
           console.log(err);
-          reject(err);
-        } else {
-          resolve(result);
-        };
+          return reject(err);
+        }
+        return resolve(result);
       });
     });
   }
@@ -41,9 +37,8 @@ class RedisClient {
         if (err) {
           console.log(err);
           return reject(err);
-        } else {
-          return resolve(result);
-        };
+        }
+        return resolve(result);
       });
     });
   }
@@ -54,9 +49,8 @@ class RedisClient {
         if (err) {
           console.log(err);
           return reject(err);
-        } else {
-          return resolve(result);
-        };
+        }
+        return resolve(result);
       });
     });
   }
