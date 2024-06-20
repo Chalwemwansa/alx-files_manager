@@ -21,8 +21,8 @@ const AppController = {
       files: fileTotal,
     };
     res.status(200).json(body);
-  }
-}
+  },
+};
 
 // export a object instance
 module.exports = AppController;

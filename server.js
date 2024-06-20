@@ -1,7 +1,7 @@
 // module contains code that makes an a express server in js using the
 // express module
 import express from 'express';
-import indexRoutes from './routes/index'
+import indexRoutes from './routes/index';
 
 const port = process.env.PORT || 5000;
 const app = express();
