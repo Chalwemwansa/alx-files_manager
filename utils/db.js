@@ -38,7 +38,7 @@ class DBClient {
     return num;
   }
 
-  // check if user exists
+  // checks if a particular email exists in the database
   async exists(email) {
     const user = await this.db.collection('users').findOne({email,}) || null;
     if (user === null) {
@@ -48,9 +48,11 @@ class DBClient {
     }
   }
 
+  // adds a new user to the db if
   async addUser(email, password) {
     const hashPwd = sha1(password);
-    const user = await this.db.collection('users').insertOne({email, password});
+    const user = await this.db.collection('users').insertOne({email, password: hashPwd});
+    console.log(user);
     return user.ops[0];
   }
 }
