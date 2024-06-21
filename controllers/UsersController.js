@@ -6,17 +6,30 @@ const UsersController = {
   postNew: async (req, res) => {
     const email = req.body.email || null;
     const password = req.body.password || null;
+    let body;
 
     if (email === null) {
-      res.status(400).json({ error: 'Missing email' });
-    }
-    if (password === null) {
-      res.status(400).json({ error: 'Missing password' });
+      body = {
+        error: 'Missing email',
+      };
+      res.status(400).json(body);
+    } else if (password === null) {
+      body = {
+        error: 'Missing password',
+      };
+      res.status(400).json(body);
     } else if (await dbClient.exists(email)){
-      res.status(400).json({error: 'Already exist'});
+      body = {
+        error: 'Already exist',
+      };
+      res.status(400).json(body);
     } else {
       const user = await dbClient.addUser(email, password);
-      res.status(201).json({id: user._id, email: user.email});
+      body = {
+        id: user._id,
+        email: user.email,
+      };
+      res.status(201).json(body);
     }
   },
 };
