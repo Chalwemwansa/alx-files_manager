@@ -8,16 +8,16 @@ const UsersController = {
     const password = req.body.password || null;
 
     if (email === null) {
-      res.status(400).json({error: 'Missing email'});
+      res.status(400).json({ error: 'Missing email' });
     }
     if (password === null) {
-      res.status(400).json({error: 'Missing password'});
+      res.status(400).json({ error: 'Missing password' });
     }
     if (await dbClient.exists(email)) {
-      res.status(400).json({error: 'Already exist'});
+      res.status(400).json({ error: 'Already exist' });
     } else {
       const user = await dbClient.addUser(email, password);
-      res.status(201).json({id: user._id, email: user.email});
+      res.status(201).json({ id: user._id, email: user.email });
     }
   },
 };
