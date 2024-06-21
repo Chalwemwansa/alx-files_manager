@@ -1,5 +1,6 @@
 // this module contains the DBClient class that uses the mongo DBClient
 import { MongoClient } from 'mongodb';
+import crypto from 'crypto';
 
 // get the variables from the environment variables
 const host = process.env.DB_HOST || '127.0.0.1';
@@ -35,6 +36,22 @@ class DBClient {
   async nbFiles() {
     const num = await this.db.collection('files').countDocuments();
     return num;
+  }
+
+  // check if user exists
+  async exists(email) {
+    const user = await this.db.collection('users').findOne({email,}) || null;
+    if (user === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  async addUser(email, password) {
+    const hashPwd = crypto.createHash('sha1').update(password, 'utf8').digest('hex');
+    const user = await this.db.collection('users').insertOne({email, password});
+    return user.ops[0];
   }
 }
 
