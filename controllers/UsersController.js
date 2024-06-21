@@ -12,8 +12,7 @@ const UsersController = {
     }
     if (password === null) {
       res.status(400).json({ error: 'Missing password' });
-    }
-    if (await dbClient.exists(email)) {
+    } else if (await dbClient.exists(email)) {
       res.status(400).json({ error: 'Already exist' });
     } else {
       const user = await dbClient.addUser(email, password);
